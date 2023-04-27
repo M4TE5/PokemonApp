@@ -30,7 +30,7 @@ interface Api{
     @GET("https://pokeapi.co/api/v2/pokemon/")
     suspend fun getPokemonList(): PokemonListResponseBody
 
-    @GET("https://pokeapi.co/api/v2/pokemon/{id}")
+    @GET("")
     suspend fun getPokemonById(@Path("id") id: Int): Pokemon
 }
 
