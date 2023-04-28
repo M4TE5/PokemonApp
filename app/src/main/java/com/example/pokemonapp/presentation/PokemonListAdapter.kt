@@ -25,7 +25,7 @@ class PokemonListAdapter: ListAdapter<PokemonEntity, PokemonListAdapter.PokemonL
     override fun onBindViewHolder(holder: PokemonListHolder, position: Int) {
         val pokemon = getItem(position)
         holder.binding.apply {
-            tvName.text = pokemon.name
+            tvName.text = pokemon.nameCap
 
             pokemonCard.setOnClickListener {
                 onPokemonItemClickListener?.invoke(pokemon)
