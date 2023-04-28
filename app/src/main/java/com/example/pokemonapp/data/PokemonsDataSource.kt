@@ -5,5 +5,5 @@ import com.example.pokemonapp.data.entities.PokemonItemEntity
 
 interface PokemonsDataSource {
     suspend fun getPokemonList(): List<PokemonEntity>
-    suspend fun getPokemonById(): PokemonItemEntity
+    suspend fun getPokemonById(id: Int): PokemonItemEntity
 }

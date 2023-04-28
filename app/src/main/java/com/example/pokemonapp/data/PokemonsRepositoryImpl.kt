@@ -1,6 +1,5 @@
 package com.example.pokemonapp.data
 
-import android.net.ConnectivityManager
 import com.example.pokemonapp.data.entities.PokemonEntity
 import com.example.pokemonapp.data.entities.PokemonItemEntity
 import com.example.pokemonapp.domain.PokemonsRepository
@@ -28,6 +27,10 @@ class PokemonsRepositoryImpl(
     }
 
     override suspend fun getPokemonById(id: Int): PokemonItemEntity {
-        TODO("Not yet implemented")
+        val dataSource = apiDataSource
+
+        val pokemonItem = dataSource.getPokemonById(id)
+
+        return pokemonItem
     }
 }
