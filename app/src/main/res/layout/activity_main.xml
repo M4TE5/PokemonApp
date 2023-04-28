@@ -7,9 +7,11 @@
     tools:context=".presentation.screens.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.example.pokemonapp.presentation.screens.MainPokemonListFragment"
+        android:id="@+id/fragment_holder"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost ="true"
         android:layout_width="match_parent"
+        app:navGraph="@navigation/nav_graph"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_main_pokemon_list" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

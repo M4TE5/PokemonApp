@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.MainPokemonListFragment">
+    tools:context=".presentation.screens.PokemonListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main_pokemon_list"
