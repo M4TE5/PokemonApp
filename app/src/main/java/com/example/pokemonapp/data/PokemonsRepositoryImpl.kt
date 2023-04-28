@@ -8,17 +8,19 @@ import com.example.pokemonapp.domain.PokemonsRepository
 class PokemonsRepositoryImpl(
     private val apiDataSource: ApiPokemonsDataSource,
     private val dbDataSource: DbPokemonsDataSource,
-    private val connectivityManager: ConnectivityManager
 ): PokemonsRepository {
 
     override suspend fun getPokemonList(): List<PokemonEntity>{
-        val dataSource = if (connectivityManager.activeNetwork != null){
-            apiDataSource
-        } else {
-            dbDataSource
-        }
+//        val dataSource = if (connectivityManager.activeNetwork != null){
+//            apiDataSource
+//        } else {
+//            dbDataSource
+//        }
+
+        val dataSource = apiDataSource
 
         val pokemonList = dataSource.getPokemonList()
+
         if(dataSource == apiDataSource){
             //TODO: Save data to db
         }
