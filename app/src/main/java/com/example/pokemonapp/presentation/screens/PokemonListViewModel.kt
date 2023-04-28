@@ -1,6 +1,5 @@
 package com.example.pokemonapp.presentation.screens
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,7 @@ import com.example.pokemonapp.domain.GetPokemonListUseCase
 import com.example.pokemonapp.domain.PokemonsRepository
 import kotlinx.coroutines.launch
 
-class MainPokemonListViewModel(private val pokemonsRepository: PokemonsRepository) : ViewModel(){
+class PokemonListViewModel(private val pokemonsRepository: PokemonsRepository) : ViewModel(){
 
     private val getPokemonListUseCase = GetPokemonListUseCase(pokemonsRepository)
 
