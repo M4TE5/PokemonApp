@@ -15,6 +15,8 @@ class PokemonListAdapter: ListAdapter<PokemonEntity, PokemonListAdapter.PokemonL
         val binding = PokemonItemBinding.bind(view)
     }
 
+    var onPokemonItemClickListener: ((PokemonEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonListHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pokemon_item, parent, false)
         return PokemonListHolder(view)
@@ -24,6 +26,10 @@ class PokemonListAdapter: ListAdapter<PokemonEntity, PokemonListAdapter.PokemonL
         val pokemon = getItem(position)
         holder.binding.apply {
             tvName.text = pokemon.name
+
+            pokemonCard.setOnClickListener {
+                onPokemonItemClickListener?.invoke(pokemon)
+            }
         }
     }
 

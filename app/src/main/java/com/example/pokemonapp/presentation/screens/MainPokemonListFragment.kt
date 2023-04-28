@@ -27,6 +27,7 @@ class MainPokemonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainPokemonListBinding.bind(view)
         setupRecyclerView()
+        setupClickListeners()
     }
 
     private fun setupRecyclerView(){
@@ -36,6 +37,12 @@ class MainPokemonListFragment : Fragment() {
             viewModel.pokemonList.observe(viewLifecycleOwner){
                 adapter.submitList(it)
             }
+        }
+    }
+
+    private fun setupClickListeners(){
+        adapter.onPokemonItemClickListener = {
+            val id = it.getId()
         }
     }
 }

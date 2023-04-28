@@ -8,7 +8,7 @@ class DbPokemonsDataSource: PokemonsDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPokemonById(): PokemonItemEntity {
+    override suspend fun getPokemonById(id: Int): PokemonItemEntity {
         TODO("Not yet implemented")
     }
 }
