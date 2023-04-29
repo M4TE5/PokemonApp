@@ -1,11 +1,8 @@
 package com.example.pokemonapp.data.entities
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+
 import com.example.pokemonapp.domain.Pokemon
 import com.google.gson.annotations.SerializedName
-import java.io.ByteArrayOutputStream
-
 data class PokemonItemEntity (
     val id: Int,
     val name: String,
