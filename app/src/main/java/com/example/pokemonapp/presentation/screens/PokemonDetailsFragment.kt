@@ -1,9 +1,9 @@
 package com.example.pokemonapp.presentation.screens
 
 import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -18,20 +18,15 @@ import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.pokemonapp.R
 import com.example.pokemonapp.data.Dependencies
 import com.example.pokemonapp.databinding.FragmentPokemonDetailsBinding
-import com.example.pokemonapp.domain.PokemonsRepository
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-
-const val POKEMON_ID_KEY = "pokemonId"
 
 class PokemonDetailsFragment : Fragment() {
-
     private val viewModel by lazy { PokemonDetailsViewModel(Dependencies.pokemonsRepository) }
     private lateinit var binding: FragmentPokemonDetailsBinding
 
@@ -52,28 +47,32 @@ class PokemonDetailsFragment : Fragment() {
         viewModel.getPokemonById(getPokemonId())
         viewModel.pokemonItem.observe(viewLifecycleOwner) { pokemon ->
             binding.apply {
-                tvName.text = pokemon.nameCap
+                tvName.text = pokemon.name
                 tvHeightValue.text = pokemon.height.toString()
                 tvWeightValue.text = pokemon.weight.toString()
-                tvTypesValue.text = pokemon.types.joinToString { it.type.name }
-                setupImage(pokemon.sprites.other.official_artwork.front_default)
+                tvTypesValue.text = pokemon.types.joinToString()
+
+                setupImage(pokemon.imageUri)
+
                 progressBar.visibility = View.GONE
             }
         }
     }
 
 
-    private fun setupImage(url: String) {
+    private fun setupImage(uri: String) {
+        val listener = resourceListener()
         Glide.with(requireContext())
-            .load(url)
+            .load(uri)
             .transition(DrawableTransitionOptions.withCrossFade())
             .fitCenter()
-            .listener(resourceListener())
+            .listener(listener)
             .into(binding.imageView)
     }
+
     private fun resourceListener(): RequestListener<Drawable>{
         return object : RequestListener<Drawable>{
-            override fun onLoadFailed(
+             override fun onLoadFailed(
                 e: GlideException?,
                 model: Any?,
                 target: Target<Drawable>?,
@@ -81,7 +80,6 @@ class PokemonDetailsFragment : Fragment() {
             ): Boolean {
                 return false
             }
-
             override fun onResourceReady(
                 resource: Drawable?,
                 model: Any?,
@@ -93,15 +91,17 @@ class PokemonDetailsFragment : Fragment() {
                 val bitmap = drawable.bitmap
                 Palette.Builder(bitmap).generate() {
                     it?.let { palette ->
-                        val dominantColor = palette.getDominantColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.white
+                        if(isAdded){
+                            val dominantColor = palette.getDominantColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
                             )
-                        )
-                        setTextColor(getTextColor(dominantColor))
-                        setNameTextColor(dominantColor)
-                        changeCardBg(dominantColor)
+                            setTextColor(getTextColor(dominantColor))
+                            setNameTextColor(dominantColor)
+                            changeCardBg(dominantColor)
+                        }
                     }
                 }
                 return false
@@ -152,4 +152,8 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun getPokemonId(): Int = requireArguments().getInt(POKEMON_ID_KEY)
+
+    companion object{
+        const val POKEMON_ID_KEY = "pokemonId"
+    }
 }

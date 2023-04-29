@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface PokemonApi {
-    @GET("pokemon/")
+    @GET(GET_POKEMON_LIST_URL)
     suspend fun getPokemonList(): PokemonListEntity
 
     @GET(GET_POKEMON_ITEM_URL)

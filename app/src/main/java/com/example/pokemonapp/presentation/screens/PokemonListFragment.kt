@@ -44,7 +44,7 @@ class PokemonListFragment : Fragment() {
 
     private fun setupClickListeners(){
         adapter.onPokemonItemClickListener = {
-            val id = it.getId()
+            val id = it.id
             val bundle = bundleOf("pokemonId" to id)
             findNavController().navigate(R.id.action_pokemonListFragment_to_pokemonDetailsFragment, bundle)
         }

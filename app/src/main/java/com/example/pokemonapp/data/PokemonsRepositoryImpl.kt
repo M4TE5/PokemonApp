@@ -1,36 +1,40 @@
 package com.example.pokemonapp.data
 
-import com.example.pokemonapp.data.entities.PokemonEntity
-import com.example.pokemonapp.data.entities.PokemonItemEntity
+import android.util.Log
+import com.example.pokemonapp.data.api.ApiPokemonsDataSource
+import com.example.pokemonapp.data.db.DbPokemonsDataSource
+import com.example.pokemonapp.domain.Pokemon
 import com.example.pokemonapp.domain.PokemonsRepository
 
 class PokemonsRepositoryImpl(
     private val apiDataSource: ApiPokemonsDataSource,
     private val dbDataSource: DbPokemonsDataSource,
+    private val networkUtils: NetworkUtils
 ): PokemonsRepository {
 
-    override suspend fun getPokemonList(): List<PokemonEntity>{
-//        val dataSource = if (connectivityManager.activeNetwork != null){
-//            apiDataSource
-//        } else {
-//            dbDataSource
-//        }
+    override suspend fun getPokemonList(): List<Pokemon>{
+        val dataSource = getDataSource()
+        Log.d("LLL",dataSource.toString())
+            val pokemonList = dataSource.getPokemonList()
 
-        val dataSource = apiDataSource
+            if (dataSource == apiDataSource){
+                dbDataSource.deleteData()
+                dbDataSource.insertData(pokemonList)
+            }
+            return pokemonList
 
-        val pokemonList = dataSource.getPokemonList()
-
-        if(dataSource == apiDataSource){
-            //TODO: Save data to db
-        }
-        return pokemonList
     }
 
-    override suspend fun getPokemonById(id: Int): PokemonItemEntity {
-        val dataSource = apiDataSource
+    override suspend fun getPokemonById(id: Int): Pokemon {
+        val dataSource = getDataSource()
+        return dataSource.getPokemonById(id)
+    }
 
-        val pokemonItem = dataSource.getPokemonById(id)
-
-        return pokemonItem
+    private fun getDataSource(): PokemonsDataSource{
+        return if (networkUtils.isNetworkAvailable()){
+            apiDataSource
+        } else {
+            dbDataSource
+        }
     }
 }
