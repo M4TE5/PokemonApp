@@ -3,6 +3,7 @@ package com.example.pokemonapp.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.pokemonapp.data.ImageUtils
 import com.example.pokemonapp.domain.Pokemon
 
 @Entity(tableName = "pokemons")
