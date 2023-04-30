@@ -3,6 +3,8 @@ package com.example.pokemonapp.data.entities
 
 import com.example.pokemonapp.domain.Pokemon
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
+
 data class PokemonItemEntity (
     val id: Int,
     val name: String,
@@ -16,13 +18,15 @@ data class PokemonItemEntity (
             id = id,
             name = name,
             types = types.map { it.getTypeName() },
-            weight = weight,
-            height = height,
+            weight = wightInKg(),
+            height = heightInCm(),
             imageUri = sprites.other.official_artwork.front_default,
             iconUri = sprites.front_default
         )
     }
 
+    private fun wightInKg(): Int = (weight.toDouble() / 10).roundToInt()
+    private fun heightInCm(): Int = height * 10
 
     data class Types (
         val type: Type,
