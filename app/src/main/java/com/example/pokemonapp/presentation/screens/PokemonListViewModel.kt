@@ -6,14 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokemonapp.domain.GetPokemonListUseCase
 import com.example.pokemonapp.domain.Pokemon
-import com.example.pokemonapp.domain.PokemonsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PokemonListViewModel(private val pokemonsRepository: PokemonsRepository) : ViewModel(){
-
-    private val getPokemonListUseCase = GetPokemonListUseCase(pokemonsRepository)
+@HiltViewModel
+class PokemonListViewModel @Inject constructor(
+    private val getPokemonListUseCase: GetPokemonListUseCase
+    ) : ViewModel(){
 
     private val _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: LiveData<List<Pokemon>>

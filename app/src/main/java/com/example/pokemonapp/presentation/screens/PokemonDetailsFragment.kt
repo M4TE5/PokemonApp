@@ -3,7 +3,6 @@ package com.example.pokemonapp.presentation.screens
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -14,21 +13,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.pokemonapp.R
-import com.example.pokemonapp.data.Dependencies
 import com.example.pokemonapp.databinding.FragmentPokemonDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokemonDetailsFragment : Fragment() {
-    private val viewModel by lazy { PokemonDetailsViewModel(Dependencies.pokemonsRepository) }
+    private val viewModel: PokemonDetailsViewModel by viewModels()
     private lateinit var binding: FragmentPokemonDetailsBinding
 
     override fun onCreateView(

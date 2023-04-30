@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.pokemonapp.R
-import com.example.pokemonapp.data.Dependencies
 import com.example.pokemonapp.databinding.FragmentMainPokemonListBinding
 import com.example.pokemonapp.presentation.PokemonListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokemonListFragment : Fragment() {
 
-    private val viewModel by lazy { PokemonListViewModel(Dependencies.pokemonsRepository) }
+    private val viewModel: PokemonListViewModel by viewModels()
     private lateinit var binding: FragmentMainPokemonListBinding
     private lateinit var adapter: PokemonListAdapter
 
