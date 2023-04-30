@@ -15,7 +15,7 @@ object Dependencies {
 
     val pokemonsRepository: PokemonsRepositoryImpl by lazy {
         PokemonsRepositoryImpl(
-            apiDataSource = ApiPokemonsDataSource(applicationContext),
+            apiDataSource = ApiPokemonsDataSource(),
             dbDataSource = DbPokemonsDataSource(database.getDao(), ImageUtils(applicationContext) ),
             networkUtils = NetworkUtils(applicationContext)
         )
