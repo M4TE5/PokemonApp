@@ -124,7 +124,7 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun setButtonColor(color: Int){
-        binding.buttonBack.backgroundTintList = ColorStateList.valueOf(color)
+        binding.buttonBack.imageTintList = ColorStateList.valueOf(color)
     }
 
     private fun setDividerColor(color:Int){

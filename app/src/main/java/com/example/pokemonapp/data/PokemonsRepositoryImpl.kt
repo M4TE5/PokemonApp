@@ -1,8 +1,8 @@
 package com.example.pokemonapp.data
 
-import android.util.Log
 import com.example.pokemonapp.data.api.ApiPokemonsDataSource
 import com.example.pokemonapp.data.db.DbPokemonsDataSource
+import com.example.pokemonapp.data.utils.NetworkUtils
 import com.example.pokemonapp.domain.Pokemon
 import com.example.pokemonapp.domain.PokemonsRepository
 

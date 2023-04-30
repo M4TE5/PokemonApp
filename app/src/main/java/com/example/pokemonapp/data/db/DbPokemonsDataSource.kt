@@ -1,6 +1,6 @@
 package com.example.pokemonapp.data.db
 
-import com.example.pokemonapp.data.ImageUtils
+import com.example.pokemonapp.data.utils.ImageUtils
 import com.example.pokemonapp.data.PokemonsDataSource
 import com.example.pokemonapp.domain.Pokemon
 import kotlinx.coroutines.Dispatchers
