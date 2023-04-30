@@ -31,18 +31,24 @@ class PokemonListFragment : Fragment() {
         binding = FragmentMainPokemonListBinding.bind(view)
         setupRecyclerView()
         setupClickListeners()
+        loadData()
+    }
+    private fun loadData(){
+        viewModel.loadData()
+        viewModel.pokemonList.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+            binding.progressBar.visibility = View.GONE
+            if (it.isEmpty()){
+                binding.buttonRefresh.visibility = View.VISIBLE
+            } else{
+                binding.buttonRefresh.visibility = View.GONE
+            }
+        }
     }
 
     private fun setupRecyclerView(){
         adapter = PokemonListAdapter()
-        binding.apply {
-            rvMainPokemonList.adapter = adapter
-            viewModel.pokemonList.observe(viewLifecycleOwner){
-                adapter.submitList(it)
-                binding.progressBar.visibility = View.GONE
-                if (it.isEmpty()) Toast.makeText(requireContext(),"No data yet!", Toast.LENGTH_SHORT).show()
-            }
-        }
+        binding.rvMainPokemonList.adapter = adapter
     }
 
     private fun setupClickListeners(){
@@ -50,6 +56,12 @@ class PokemonListFragment : Fragment() {
             val id = it.id
             val bundle = bundleOf("pokemonId" to id)
             findNavController().navigate(R.id.action_pokemonListFragment_to_pokemonDetailsFragment, bundle)
+        }
+
+        binding.buttonRefresh.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            loadData()
+            Toast.makeText(requireContext(),"Refreshing...",Toast.LENGTH_SHORT).show()
         }
     }
 }
