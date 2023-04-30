@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.example.pokemonapp.data.api.ApiPokemonsDataSource
 import com.example.pokemonapp.data.db.DbPokemonsDataSource
 import com.example.pokemonapp.data.db.PokemonDb
+import com.example.pokemonapp.data.utils.ImageUtils
+import com.example.pokemonapp.data.utils.NetworkUtils
 
 object Dependencies {
     private lateinit var applicationContext: Context

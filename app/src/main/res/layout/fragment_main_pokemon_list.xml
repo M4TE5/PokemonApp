@@ -32,14 +32,14 @@
         android:layout_marginTop="100dp" />
 
     <ImageButton
-        android:clickable="true"
-        android:backgroundTint="@android:color/transparent"
         android:id="@+id/button_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:clickable="true"
         android:src="@drawable/ic_refresh"
         android:visibility="invisible"
         tools:visibility="visible" />
