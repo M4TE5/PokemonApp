@@ -19,7 +19,7 @@ class PokemonListViewModel(private val pokemonsRepository: PokemonsRepository) :
     val pokemonList: LiveData<List<Pokemon>>
         get() = _pokemonList
 
-    init {
+    fun loadData(){
         viewModelScope.launch(Dispatchers.IO) {
             val list = getPokemonListUseCase.getPokemonList()
             withContext(Dispatchers.Main){
