@@ -56,7 +56,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textColor="@color/primary_text_color"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_name"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
