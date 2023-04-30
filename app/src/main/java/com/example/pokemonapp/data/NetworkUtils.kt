@@ -3,6 +3,7 @@ package com.example.pokemonapp.data
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 
 class NetworkUtils(private val context: Context) {
 
