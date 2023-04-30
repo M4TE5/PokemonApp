@@ -28,7 +28,7 @@ data class PokemonItemEntity (
         val type: Type,
     ) {
         fun getTypeName(): String{
-            return type.name
+            return type.name.replaceFirstChar { it.uppercase() }
         }
 
         data class Type(

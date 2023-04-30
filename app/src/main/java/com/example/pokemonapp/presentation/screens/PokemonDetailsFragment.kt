@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.navigation.fragment.findNavController
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -41,13 +42,21 @@ class PokemonDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPokemonDetailsBinding.bind(view)
+        setClickListeners()
+    }
+
+    private fun setClickListeners(){
+        binding.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun fillInfo() {
         viewModel.getPokemonById(getPokemonId())
         viewModel.pokemonItem.observe(viewLifecycleOwner) { pokemon ->
             binding.apply {
-                tvName.text = pokemon.name
+                tvId.text = getStringId(pokemon.id)
+                tvName.text = formatName(pokemon.name)
                 tvHeightValue.text = pokemon.height.toString()
                 tvWeightValue.text = pokemon.weight.toString()
                 tvTypesValue.text = pokemon.types.joinToString()
@@ -59,6 +68,9 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    private fun formatName(name: String): String = name.replaceFirstChar { it.uppercase() }
+
+    private fun getStringId(id: Int): String = "#" + "000$id".takeLast(3)
 
     private fun setupImage(uri: String) {
         val listener = resourceListener()
@@ -67,7 +79,7 @@ class PokemonDetailsFragment : Fragment() {
             .transition(DrawableTransitionOptions.withCrossFade())
             .fitCenter()
             .listener(listener)
-            .into(binding.imageView)
+            .into(binding.pokemonImage)
     }
 
     private fun resourceListener(): RequestListener<Drawable>{
@@ -101,6 +113,8 @@ class PokemonDetailsFragment : Fragment() {
                             setTextColor(getTextColor(dominantColor))
                             setNameTextColor(dominantColor)
                             changeCardBg(dominantColor)
+                            setDividerColor(dominantColor)
+                            setButtonColor(dominantColor)
                         }
                     }
                 }
@@ -109,10 +123,18 @@ class PokemonDetailsFragment : Fragment() {
         }
     }
 
+    private fun setButtonColor(color: Int){
+        binding.buttonBack.backgroundTintList = ColorStateList.valueOf(color)
+    }
+
+    private fun setDividerColor(color:Int){
+        binding.divider.setBackgroundColor(color)
+    }
+
     private fun setNameTextColor(color: Int){
         val colorBrightness = ColorUtils.calculateLuminance(color)
         val newColor = if (colorBrightness >= 0.6){
-            ColorUtils.blendARGB(color, Color.BLACK, 0.3f)
+            ColorUtils.blendARGB(color, Color.BLACK, 0.2f)
         } else color
         binding.tvName.setTextColor(newColor)
     }
@@ -142,6 +164,7 @@ class PokemonDetailsFragment : Fragment() {
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, color)
         colorAnimation.duration = 600
         binding.apply {
+            buttonBack.imageTintList = ColorStateList.valueOf(color)
             tvTypes.setTextColor(color)
             tvTypesValue.setTextColor(color)
             tvHeight.setTextColor(color)

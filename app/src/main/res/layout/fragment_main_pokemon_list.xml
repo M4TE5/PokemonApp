@@ -6,11 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screens.PokemonListFragment">
 
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="700dp"
+        android:layout_height="700dp"
+        android:layout_gravity="bottom|start"
+        android:src="@drawable/ic_pokeball" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main_pokemon_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="24dp"
         app:layoutManager="GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/pokemon_item" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="100dp" />
+
 </FrameLayout>
