@@ -57,8 +57,8 @@ class PokemonDetailsFragment : Fragment() {
             binding.apply {
                 tvId.text = getStringId(pokemon.id)
                 tvName.text = formatName(pokemon.name)
-                tvHeightValue.text = pokemon.height.toString()
-                tvWeightValue.text = pokemon.weight.toString()
+                tvHeightValue.text = "${pokemon.height}cm"
+                tvWeightValue.text = "${pokemon.weight}kg"
                 tvTypesValue.text = pokemon.types.joinToString()
 
                 setupImage(pokemon.imageUri)
