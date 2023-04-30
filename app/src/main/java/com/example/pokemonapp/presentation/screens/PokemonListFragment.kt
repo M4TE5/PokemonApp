@@ -38,6 +38,7 @@ class PokemonListFragment : Fragment() {
             rvMainPokemonList.adapter = adapter
             viewModel.pokemonList.observe(viewLifecycleOwner){
                 adapter.submitList(it)
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
